@@ -12,6 +12,7 @@ class Controller {
         if (!isset($_SERVER['PATH_INFO']) or $_SERVER['PATH_INFO']=='/' ){
             echo 'Missing parameters';
         } else {
+            
             //echo $_SERVER['PATH_INFO'];
             $pathSegments = explode('/', $_SERVER['PATH_INFO']);
             array_shift($pathSegments);
@@ -26,10 +27,19 @@ class Controller {
             //echo $serviceNameFilename . '<br/>';
             //echo $resourceName . '<br/>';
             //echo json_encode( $pathSegments);
-            require_once($serviceNameFilename);
-            $this->service = new $serviceName; //dynamic binding
+            //require_once($serviceNameFilename);
+            require_once("VaccineService.php");
+            //$this->service = new $serviceName; //dynamic binding
+            $this->service = new VaccineService();
             //$this->service = new StudentService();
             $this->parameters = $pathSegments;
+              
+            /*          
+            $pathSegments = explode('/', $_SERVER['PATH_INFO']);
+            require_once("VaccineService.php");
+            $objSvr = new VaccineService();            
+            $objSvr->restGet($pathSegments);
+            */
         }        
     }
 
@@ -39,7 +49,9 @@ class Controller {
         $method = ucfirst(strtolower($method));
         $method = 'rest'.$method;
         echo 'method variable: ' . $method . '<br/>';
-        $this->service->$method();
+        $params = explode('/', $_SERVER['PATH_INFO']);
+        array_shift($params);
+        $this->service->$method($params);
     }
 }
 
