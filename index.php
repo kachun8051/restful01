@@ -19,11 +19,13 @@ class Controller {
             
             $resourceName = array_shift($pathSegments);
             $serviceName = ucfirst($resourceName).'Service';
+            /*
             $serviceNameFilename = ucfirst($serviceName).'.php';
             if (!file_exists($serviceNameFilename)){
                 echo 'resource ' . $serviceNameFilename . ' not found';
                 exit;
             }
+            */
             //echo $serviceNameFilename . '<br/>';
             //echo $resourceName . '<br/>';
             //echo json_encode( $pathSegments);
